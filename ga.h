@@ -5,9 +5,8 @@
 #include <limits.h>
 /**
  *     @file  ga.h
- *     @brief  GA Ëã·¨´¦ÀíÁ÷³Ì 
- *     @author  NanKor (NK), mkzmkzmkz1988@gmail.com
- *     @date  2012Äê11ÔÂ05ÈÕ 18Ê±10·Ö26Ãë
+ *     @brief  GA ç®—æ³•å¤„ç†æµç¨‹ 
+ *     @date  2012å¹´11æœˆ05æ—¥ 18æ—¶10åˆ†26ç§’
  *    Compiler  gcc/g++
  *     Company  XiDian Univ
  *   Copyright  Copyright (c) 2012, NanKor
@@ -15,41 +14,41 @@
 
 using namespace std;
 
-#define POPSIZE     200                            /**  population size ÖÖÈº´óĞ¡*/ 
-#define NOGEN       100                             /**  ÒÅ´«´úÊı*/ 
-#define PXOVER      0.8                            /**  probability of crossover ÔÓ½»¸ÅÂÊ*/ 
-#define PMUTATION   0.9                            /**  probability of mutation ±äÒì¸ÅÂÊ 0.7*/ 
-#define NOMUTATION  1                              /**  ±äÒì²Ù×÷´ÎÊı 1 */
-#define NOCROSS     50                             /** ½»²æ´ÎÊı */
-#define PFATHEROK   0.3                            /**  ¸¸´ú½ÓÊÜ¸ÅÂÊ 0.3*/
-#define ASPECT      3                              /**  ÊÊÓ¦¶ÈÖ¸±êÊıÁ¿  */
-#define DEBUGMODE   0                              /** DEBUGÄ£Ê½ */
-#define COUNTTIME   50                             /** ±äÒìÊ±Ñ°ÕÒÓÅÓÚÔ­À´µ¥´ÊµÄ²½Êı  */
-#define RE_TIME     10                             /** Ïà¹Ø¶ÈµÄÈ¨Öµ */
-#define EM_TIME     1                              /** ±äÒìÊ±Çé¸Ğ·½²îµÄÈ¨Öµ  */
-#define PCLEVER     0.8                            /**  ÓÉÓÚ´ÊÊıÉÙµÄ¾ä×ÓÇé¸ĞµÃ·Ö·½²î´ó£¬¼«´ó¿ÉÄÜÊÇ±¾Ê×´ÎÄÚÊÊÓ¦¶È×îĞ¡µÄ¾ä×Ó£¬ÈçÈô½»²æ±äÒìÒ»Ö±Ñ¡Ôñ´Ë¾ä£¬¸Ä±äµÄ´ÊÊı½ÏÉÙ£¬¹ÊÒÔ¸Ã¸ÅÂÊ½ÓÊÜÑ¡Ôñ½»²æÆäËû¾ä×Ó½øĞĞ½»²æ±äÒì£¬ÒÔÔö³¤½»²æµÄ³¤¶ÈÓë±äÒìµÄ»ùÒòĞòÁĞ³¤¶È  */
+#define POPSIZE     200                            /**  population size ç§ç¾¤å¤§å°*/ 
+#define NOGEN       100                             /**  é—ä¼ ä»£æ•°*/ 
+#define PXOVER      0.8                            /**  probability of crossover æ‚äº¤æ¦‚ç‡*/ 
+#define PMUTATION   0.9                            /**  probability of mutation å˜å¼‚æ¦‚ç‡ 0.7*/ 
+#define NOMUTATION  1                              /**  å˜å¼‚æ“ä½œæ¬¡æ•° 1 */
+#define NOCROSS     50                             /** äº¤å‰æ¬¡æ•° */
+#define PFATHEROK   0.3                            /**  çˆ¶ä»£æ¥å—æ¦‚ç‡ 0.3*/
+#define ASPECT      3                              /**  é€‚åº”åº¦æŒ‡æ ‡æ•°é‡  */
+#define DEBUGMODE   0                              /** DEBUGæ¨¡å¼ */
+#define COUNTTIME   50                             /** å˜å¼‚æ—¶å¯»æ‰¾ä¼˜äºåŸæ¥å•è¯çš„æ­¥æ•°  */
+#define RE_TIME     10                             /** ç›¸å…³åº¦çš„æƒå€¼ */
+#define EM_TIME     1                              /** å˜å¼‚æ—¶æƒ…æ„Ÿæ–¹å·®çš„æƒå€¼  */
+#define PCLEVER     0.8                            /**  ç”±äºè¯æ•°å°‘çš„å¥å­æƒ…æ„Ÿå¾—åˆ†æ–¹å·®å¤§ï¼Œæå¤§å¯èƒ½æ˜¯æœ¬é¦–æ¬¡å†…é€‚åº”åº¦æœ€å°çš„å¥å­ï¼Œå¦‚è‹¥äº¤å‰å˜å¼‚ä¸€ç›´é€‰æ‹©æ­¤å¥ï¼Œæ”¹å˜çš„è¯æ•°è¾ƒå°‘ï¼Œæ•…ä»¥è¯¥æ¦‚ç‡æ¥å—é€‰æ‹©äº¤å‰å…¶ä»–å¥å­è¿›è¡Œäº¤å‰å˜å¼‚ï¼Œä»¥å¢é•¿äº¤å‰çš„é•¿åº¦ä¸å˜å¼‚çš„åŸºå› åºåˆ—é•¿åº¦  */
 #define SHAMETIME   4
 /**
  * @class sen_no_res
- * @brief »ñÈ¡Ò»Ê×´ÊÖĞÊÊÓ¦¶È×îĞ¡µÄ¾ä×Ó±àºÅÓëÊÊÓ¦¶È
+ * @brief è·å–ä¸€é¦–è¯ä¸­é€‚åº”åº¦æœ€å°çš„å¥å­ç¼–å·ä¸é€‚åº”åº¦
  */
 struct sen_no_res{
-    int sen_no;                                 /** ¸Ã¾ä´Ó0¿ªÊ¼¼ÆÊı */
-    double sen_res;                             /** ¸Ã¾äASPECT·½ÃæµÄÊÊÓ¦¶ÈÖ®ºÍ */
+    int sen_no;                                 /** è¯¥å¥ä»0å¼€å§‹è®¡æ•° */
+    double sen_res;                             /** è¯¥å¥ASPECTæ–¹é¢çš„é€‚åº”åº¦ä¹‹å’Œ */
 };
 
 
 /**
  * @class chromosome
- * @brief Ò»Ê×´Ê×öÎªÈ¾É«Ìå¸öÌå£¬°üº¬´ÊÄÚÈİ£¬×ÜÊÊÓ¦¶È£¬×îĞ¡ÊÊÓ¦¶È¾ä×Ó
+ * @brief ä¸€é¦–è¯åšä¸ºæŸ“è‰²ä½“ä¸ªä½“ï¼ŒåŒ…å«è¯å†…å®¹ï¼Œæ€»é€‚åº”åº¦ï¼Œæœ€å°é€‚åº”åº¦å¥å­
  */
 struct chromosome {
-    vector<vector<int> > indiv;                 /** Ò»Ê×´Ê */
-    double  indiv_res[ASPECT];                  /** ¸ÃÊ×´ÊÕûÌåµÄÊÊÓ¦¶È */
-    struct sen_no_res  minres_sen;              /**  ¸ÃÊ×´ÊÖĞ×îĞ¡ÊÊÓ¦¶ÈµÄ¾ä×ÓºÅÓëÆäÆ½¾ùÊÊÓ¦¶È */
+    vector<vector<int> > indiv;                 /** ä¸€é¦–è¯ */
+    double  indiv_res[ASPECT];                  /** è¯¥é¦–è¯æ•´ä½“çš„é€‚åº”åº¦ */
+    struct sen_no_res  minres_sen;              /**  è¯¥é¦–è¯ä¸­æœ€å°é€‚åº”åº¦çš„å¥å­å·ä¸å…¶å¹³å‡é€‚åº”åº¦ */
 
     /** 
-     * @brief operator=  ÖØÔØ=£¬×öÎªstruct¸³Öµ 
+     * @brief operator=  é‡è½½=ï¼Œåšä¸ºstructèµ‹å€¼ 
      * @param chromosome src 
      * @return chromosome
      * 
@@ -70,7 +69,7 @@ struct chromosome {
 typedef struct chromosome  Chrom;
 
 /** 
- * @brief greatbf_af  ±È½ÏÁ½¸ö¸öÌåµÄÊÊÓ¦¶È before>after
+ * @brief greatbf_af  æ¯”è¾ƒä¸¤ä¸ªä¸ªä½“çš„é€‚åº”åº¦ before>after
  * @param  const chromosome & before,const chromosome & after
  * @return true:before>after false:before<after
  * 
@@ -79,16 +78,16 @@ bool greatbf_af(const chromosome & before,const chromosome & after);
 
 
 /** 
- * @brief cre_random ²úÉú[start,end]¼äµÄËæ»úÊı
+ * @brief cre_random äº§ç”Ÿ[start,end]é—´çš„éšæœºæ•°
  * @param double start, double end  
- * @return double Ëæ»úÊı
+ * @return double éšæœºæ•°
  * 
  */
 double cre_random ( double start,double end );
 
 
 /** 
- * @brief disp_poem ÏÔÊ¾Ò»Ê×´ÊÄÚÈİ
+ * @brief disp_poem æ˜¾ç¤ºä¸€é¦–è¯å†…å®¹
  * @param  vector<vector<int > > onepoem
  * @return NULL
  * 
@@ -97,7 +96,7 @@ double cre_random ( double start,double end );
 void disp_poem ( vector<vector<int > > onepoem );
 
 /** 
- * @brief disp_chrom ÏÔÊ¾È¾É«ÌåÄÚÈİ 
+ * @brief disp_chrom æ˜¾ç¤ºæŸ“è‰²ä½“å†…å®¹ 
  * @param  Chrom onechrom 
  * @return NULL
  * 
@@ -107,50 +106,50 @@ void disp_chrom ( Chrom  onechrom);
 /** 
  * @brief comp_poem_re 
  * @param vector<int> keyword, Chrom& onechrom
- * @return double º¬ÓĞ³Í·£µÄÕûÊ×´Ê×ÜÌåµÄÏà¹Ø¶ÈµÃ·Ö¡Á10
+ * @return double å«æœ‰æƒ©ç½šçš„æ•´é¦–è¯æ€»ä½“çš„ç›¸å…³åº¦å¾—åˆ†Ã—10
  * 
  */
 double comp_poem_re (vector<int> keyword, Chrom& onechrom);
 
 
 /** 
- * @brief comp_res ¼ÆËãÄ³ÌõÈ¾É«ÌåµÄÊÊÓ¦¶ÈÓë×îĞ¡ÊÊÓ¦¶ÈµÄ¾ä×ÓÓë±àºÅ
+ * @brief comp_res è®¡ç®—æŸæ¡æŸ“è‰²ä½“çš„é€‚åº”åº¦ä¸æœ€å°é€‚åº”åº¦çš„å¥å­ä¸ç¼–å·
  * @param vector<int> keyword, Chrom& onechrom
- * @return int 1 ³É¹¦ int -1 Ê§°Ü
+ * @return int 1 æˆåŠŸ int -1 å¤±è´¥
  * 
  */
 int comp_res(vector<int> keyword, Chrom& onechrom);
 
 
 /** 
- * @brief init_chrom ³õÊ¼»¯Ò»ÌõÈ¾É«Ìå 
+ * @brief init_chrom åˆå§‹åŒ–ä¸€æ¡æŸ“è‰²ä½“ 
  * @param vector<vector<int> > poemindiv, Chrom &  onechrom, vector<int> keyword 
- * @return int 1 ³É¹¦ int -1 Ê§°Ü
+ * @return int 1 æˆåŠŸ int -1 å¤±è´¥
  * 
  */
 int init_chrom(vector<vector<int> > poemindiv, Chrom &  onechrom, vector<int> keyword); 
 
 
 /** 
- * @brief crossover_chrom Á½Ê×´ÊÖĞ×îĞ¡ÊÊÓ¦¶ÈµÄ¾ä×Ó½øĞĞ½»²æ 
- * @param Chrom & firchrom, Chrom & secchrom,vector<int> keyword´ı½»²æµÄ¸¸´ú
- * @return int  1 ³É¹¦ int -1 Ê§°Ü
+ * @brief crossover_chrom ä¸¤é¦–è¯ä¸­æœ€å°é€‚åº”åº¦çš„å¥å­è¿›è¡Œäº¤å‰ 
+ * @param Chrom & firchrom, Chrom & secchrom,vector<int> keywordå¾…äº¤å‰çš„çˆ¶ä»£
+ * @return int  1 æˆåŠŸ int -1 å¤±è´¥
  * 
  */
 void crossover_chrom (Chrom & firchrom, Chrom & secchrom,vector<int> keyword);
 
 
 /** 
- * @brief search_best Ñ¡È¡ÖÖÈºÖĞ×îÓÅµÄ¸öÌå 
+ * @brief search_best é€‰å–ç§ç¾¤ä¸­æœ€ä¼˜çš„ä¸ªä½“ 
  * @param  vector<Chrom > & popu
- * @return int ·µ»Ø×îÓÅ¸öÌåµÄ±àºÅ 
+ * @return int è¿”å›æœ€ä¼˜ä¸ªä½“çš„ç¼–å· 
  * 
  */
 int search_best(vector<Chrom > & popu);
 
 
 /** 
- * @brief init_popu ³õÊ¼»¯ÖÖÈº 
+ * @brief init_popu åˆå§‹åŒ–ç§ç¾¤ 
  * @param vector<vector<vector<int > > >& oripopu,vector<Chrom>& orifather, vector<int> keyword 
  * @return null 
  * 
@@ -159,7 +158,7 @@ void init_popu(vector<vector<vector<int > > >& oripopu,vector<Chrom>& orifather,
 
 
 /** 
- * @brief chose_inher Ñ¡ÔñÒÅ´« 
+ * @brief chose_inher é€‰æ‹©é—ä¼  
  * @param vector<Chrom>& father,vector<Chrom>& son
  * @return NULL
  * 
@@ -169,14 +168,14 @@ void chose_inher(vector<Chrom>& father,vector<Chrom>& son);
 /** 
  * @brief change_dfa_one 
  * @param Chrom onechrom,vector<Chrom> popu,int muta_sen_no,vector<int> keyword
- * @return int 1 ³É¹¦ int -1 Ê§°Ü
+ * @return int 1 æˆåŠŸ int -1 å¤±è´¥
  * 
  */
 int  change_dfa_one(Chrom onechrom,vector<Chrom> popu,int muta_sen_no,vector<int> keyword);
 
 
 /** 
- * @brief get_pz_fr_pat ´ÓÒ»¾äpatternÖĞ»ñÈ¡µÚwordth¸öµ¥´ÊµÄÆ½ØÆ×Ö·û´®,wordth ´Ó0¼ÆÊı 
+ * @brief get_pz_fr_pat ä»ä¸€å¥patternä¸­è·å–ç¬¬wordthä¸ªå•è¯çš„å¹³ä»„å­—ç¬¦ä¸²,wordth ä»0è®¡æ•° 
  * @param string pattern,int wordth,string & wordpz
  * @return
  * 
@@ -185,9 +184,9 @@ int get_pz_fr_pat(string pattern,int wordth,string & wordpz);
 
 
 /** 
- * @brief muat_sen ±äÒìonechrom[muta_sen_no]ÖĞµÄÄ³¸öµ¥´Ê 
+ * @brief muat_sen å˜å¼‚onechrom[muta_sen_no]ä¸­çš„æŸä¸ªå•è¯ 
  * @param Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> wordlist,int cipai
- * @return int 1 Õı±äÒì¼´±äÒìºó¸üÓÅ int 0 ±äÒìÖ®ºóÊÊÓ¦¶ÈÃ»±ä»¯ int -1 ¸º±äÒì
+ * @return int 1 æ­£å˜å¼‚å³å˜å¼‚åæ›´ä¼˜ int 0 å˜å¼‚ä¹‹åé€‚åº”åº¦æ²¡å˜åŒ– int -1 è´Ÿå˜å¼‚
  * 
  */
 int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> wordlist,int cipai);
@@ -197,16 +196,16 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
 /** 
  * @brief muat 
  * @param Chrom & onechrom,vector<Chrom> popu,vector<int > keyword,vector<int > & wordlist,int cipai
- * @return 0 Ã»ÓĞ±äÒì 1 Õı±äÒì»òÕßdfa±äÒìÍ¨¹ı -1¸º±äÒì»òÕßDFA±äÒìÃ»ÓĞÍ¨¹ı
+ * @return 0 æ²¡æœ‰å˜å¼‚ 1 æ­£å˜å¼‚æˆ–è€…dfaå˜å¼‚é€šè¿‡ -1è´Ÿå˜å¼‚æˆ–è€…DFAå˜å¼‚æ²¡æœ‰é€šè¿‡
  * 
  */
 int  muta(Chrom & onechrom,vector<Chrom> popu,vector<int > keyword,vector<int > & wordlist,int cipai);
 
 
 /** 
- * @brief ga_pro ÒÅ´«Ëã·¨Á÷³Ì 
+ * @brief ga_pro é—ä¼ ç®—æ³•æµç¨‹ 
  * @param vector<Chrom>& father,vector<Chrom>& son, int gen,vector<int> keyword,vector<int> wordlist 
- * @return ×îÓÅ×Ó´úµÄ±àºÅ
+ * @return æœ€ä¼˜å­ä»£çš„ç¼–å·
  * 
  */
 int ga_pro(vector<Chrom>& father,vector<Chrom>& son, int gen,vector<int> keyword,vector<int > wordlist,int cipai);
@@ -257,17 +256,17 @@ void disp_chrom(Chrom onechrom)
 double comp_poem_re (vector<int> keyword, Chrom& onechrom)
 {
     ifstream finrev;
-    finrev.open("reva.data",ios::in|ios::binary); /**  wordslib.data Ö÷ÒªÊÇµ¥´ÊÁĞ±í  */
+    finrev.open("reva.data",ios::in|ios::binary); /**  wordslib.data ä¸»è¦æ˜¯å•è¯åˆ—è¡¨  */
     double poem_re=0.;
     int j=0;
     for ( j = 0; j < onechrom.indiv.size(); j++ )
     {
-        poem_re += re_evaluate(onechrom.indiv[j],keyword,finrev); /**  ±¾¾ä´ÊµÄ×ÜÌåÏà¹Ø¶ÈÆÀ¼Û */
+        poem_re += re_evaluate(onechrom.indiv[j],keyword,finrev); /**  æœ¬å¥è¯çš„æ€»ä½“ç›¸å…³åº¦è¯„ä»· */
     }
 
     /**
-     *  ¶ÔÓÚÄ³Ê×´ÊÖĞÒòÎªÊ¹ÓÃ¶à¸öÖØ¸´µÄ´Ê£¬½øĞĞ³Í·££¬ÒÔ±ÜÃâÒòÊ¹ÓÃÖØ¸´´ÊÔì³ÉµÄ
-     *  Ïà¹Ø¶ÈÓëÇé¸ĞµÃ·ÖµÄÔö¼Ó
+     *  å¯¹äºæŸé¦–è¯ä¸­å› ä¸ºä½¿ç”¨å¤šä¸ªé‡å¤çš„è¯ï¼Œè¿›è¡Œæƒ©ç½šï¼Œä»¥é¿å…å› ä½¿ç”¨é‡å¤è¯é€ æˆçš„
+     *  ç›¸å…³åº¦ä¸æƒ…æ„Ÿå¾—åˆ†çš„å¢åŠ 
      */
     vector<int > poem_sort;
     int k=0;
@@ -280,14 +279,14 @@ double comp_poem_re (vector<int> keyword, Chrom& onechrom)
     }
 
     sort(poem_sort.begin(),poem_sort.end(),greater<int>());
-    int count_re=0;                             /** ¼ÆËãÒ»Ê×´ÊÄÚËùÓĞÖØ¸´´ÊÖØ¸´µÄ´ÊÊı */
+    int count_re=0;                             /** è®¡ç®—ä¸€é¦–è¯å†…æ‰€æœ‰é‡å¤è¯é‡å¤çš„è¯æ•° */
     for(int i=1;i<poem_sort.size();i++)
     {
         if(poem_sort[i]==poem_sort[i-1])
             count_re++;
     }
     double aver_re=poem_re/poem_sort.size();
-    poem_re=aver_re*(poem_sort.size()-count_re*SHAMETIME)*RE_TIME; /** SHAMETIME±¶³Í·£ÖØ¸´´Ê */
+    poem_re=aver_re*(poem_sort.size()-count_re*SHAMETIME)*RE_TIME; /** SHAMETIMEå€æƒ©ç½šé‡å¤è¯ */
     finrev.close();
     return poem_re;
 }
@@ -296,21 +295,21 @@ double comp_poem_re (vector<int> keyword, Chrom& onechrom)
 int comp_res(vector<int> keyword, Chrom& onechrom)
 {
     ifstream finrev;
-    finrev.open("reva.data",ios::in|ios::binary); /**  reve.dataÖ÷ÒªÊÇÁ½¸öµ¥´ÊÖ®¼äµÄÏà¹Ø¶È¾ØÕó */
+    finrev.open("reva.data",ios::in|ios::binary); /**  reve.dataä¸»è¦æ˜¯ä¸¤ä¸ªå•è¯ä¹‹é—´çš„ç›¸å…³åº¦çŸ©é˜µ */
     ifstream finword;
-    finword.open("wordslib.data",ios::in|ios::binary); /**   wordslib.data Ö÷ÒªÊÇµ¥´ÊÁĞ±í  */
+    finword.open("wordslib.data",ios::in|ios::binary); /**   wordslib.data ä¸»è¦æ˜¯å•è¯åˆ—è¡¨  */
     double res_sen_j=0.,sen_syta=0.,sen_re=0.,sen_emo=0.; 
-    /** res_sen_j¼ÇÂ¼µ±Ç°¾ä×ÓµÄµÃ·Ö 
-     * sen_syta¼ÇÂ¼µ±Ç°¾ä×ÓµÄÓï·¨ÆÀ¼ÛµÄº¯Êı½á¹û 
-     * sen_emo¼ÇÂ¼µ±Ç°¾ä×ÓµÄÇé¸ĞÆÀ¼Ûº¯ÊıµÄ½á¹û
-     * sen_re ¼ÇÂ¼µ±Ç°¾ä×ÓµÄÓëÖ÷ÌâÏà¹Ø¶ÈµÄº¯ÊıÆÀ¼Û½á¹û
+    /** res_sen_jè®°å½•å½“å‰å¥å­çš„å¾—åˆ† 
+     * sen_sytaè®°å½•å½“å‰å¥å­çš„è¯­æ³•è¯„ä»·çš„å‡½æ•°ç»“æœ 
+     * sen_emoè®°å½•å½“å‰å¥å­çš„æƒ…æ„Ÿè¯„ä»·å‡½æ•°çš„ç»“æœ
+     * sen_re è®°å½•å½“å‰å¥å­çš„ä¸ä¸»é¢˜ç›¸å…³åº¦çš„å‡½æ•°è¯„ä»·ç»“æœ
      */
 
     int j=0;
-    for ( j=0;j < onechrom.indiv.size(); j++ )   /** ±éÀú¸ÃÊ×´ÊÄÚµÄÃ¿¾ä */
+    for ( j=0;j < onechrom.indiv.size(); j++ )   /** éå†è¯¥é¦–è¯å†…çš„æ¯å¥ */
     {
         res_sen_j=0.;
-        for ( int i = 0; i< ASPECT; i++ )       /** ¼ÆËãÃ¿¾äÔÚASPECT¸ö·½ÃæµÄÆÀ¼Û½á¹û ²¢ÇóµÃ¸ÃÊ×´Ê×ÜµÄÊÊÓ¦¶È */
+        for ( int i = 0; i< ASPECT; i++ )       /** è®¡ç®—æ¯å¥åœ¨ASPECTä¸ªæ–¹é¢çš„è¯„ä»·ç»“æœ å¹¶æ±‚å¾—è¯¥é¦–è¯æ€»çš„é€‚åº”åº¦ */
         {	
             if ( j==0 )
             {
@@ -321,16 +320,16 @@ int comp_res(vector<int> keyword, Chrom& onechrom)
             switch (i)
             {
                 case 0:
-                    sen_syta = sytax_evaluate(onechrom.indiv[j],finword); /** »ñÈ¡±¾¾äµÄÓï·¨ÕıÈ·ĞÔ ¼´ÑéÖ¤DFA Í¨¹ıÎª1 ·ñÔòÎª0 */
+                    sen_syta = sytax_evaluate(onechrom.indiv[j],finword); /** è·å–æœ¬å¥çš„è¯­æ³•æ­£ç¡®æ€§ å³éªŒè¯DFA é€šè¿‡ä¸º1 å¦åˆ™ä¸º0 */
                     onechrom.indiv_res[i] +=sen_syta;
                     res_sen_j +=sen_syta;
                     break;
                 case 1:
-                    sen_re =  re_evaluate(onechrom.indiv[j],keyword,finrev); /**  ±¾¾ä´ÊµÄ×ÜÌåÏà¹Ø¶ÈÆÀ¼Û */
-                    res_sen_j += (sen_re/onechrom.indiv[j].size()); /** ÓÉÓÚÃ¿¾äµÄµ¥´ÊÊıÄ¿²»Ò»Ñù£¬±ØĞë³ıÒÔ¸Ã¾ä´ÊÊı¼ÆËãÆ½¾ùÏà¹Ø¶È */
+                    sen_re =  re_evaluate(onechrom.indiv[j],keyword,finrev); /**  æœ¬å¥è¯çš„æ€»ä½“ç›¸å…³åº¦è¯„ä»· */
+                    res_sen_j += (sen_re/onechrom.indiv[j].size()); /** ç”±äºæ¯å¥çš„å•è¯æ•°ç›®ä¸ä¸€æ ·ï¼Œå¿…é¡»é™¤ä»¥è¯¥å¥è¯æ•°è®¡ç®—å¹³å‡ç›¸å…³åº¦ */
                     break;
                 case 2:
-                    sen_emo = emotion_evaluate(onechrom.indiv[j],finword); /**  ±¾¾ä´ÊµÄÇé¸ĞÍ³Ò»ĞÔ */
+                    sen_emo = emotion_evaluate(onechrom.indiv[j],finword); /**  æœ¬å¥è¯çš„æƒ…æ„Ÿç»Ÿä¸€æ€§ */
                     onechrom.indiv_res[i] += sen_emo;
                     res_sen_j +=sen_emo; 
                     break;
@@ -341,7 +340,7 @@ int comp_res(vector<int> keyword, Chrom& onechrom)
                     return -1;
             }
         }
-        /** È¡µÃ¸ÃÊ×´ÊÄÚÊÊÓ¦¶È×îĞ¡µÄ¾ä×Ó±àºÅÓëÏàÓ¦¾ä×ÓµÄÊÊÓ¦¶È */
+        /** å–å¾—è¯¥é¦–è¯å†…é€‚åº”åº¦æœ€å°çš„å¥å­ç¼–å·ä¸ç›¸åº”å¥å­çš„é€‚åº”åº¦ */
         if ( j==0 )
         {
             onechrom.minres_sen.sen_res=res_sen_j;
@@ -378,13 +377,13 @@ void crossover_chrom (Chrom&  firchrom, Chrom & secchrom,vector<int> keyword)
     double sec_cro_res=secchrom.minres_sen.sen_res;
     double cro_res=fir_cro_res;
     int cro_sen_no=firchrom.minres_sen.sen_no;
-    if(cro_res>sec_cro_res)/** ±È½ÏÁ½Ê×´ÊÊÊÓ¦¶È×îĞ¡µÄ¾ä×ÓµÄÊÊÓ¦¶È£¬È¡¸üĞ¡µÄ½»²æ */
+    if(cro_res>sec_cro_res)/** æ¯”è¾ƒä¸¤é¦–è¯é€‚åº”åº¦æœ€å°çš„å¥å­çš„é€‚åº”åº¦ï¼Œå–æ›´å°çš„äº¤å‰ */
     {
         cro_res=sec_cro_res;
         cro_sen_no=secchrom.minres_sen.sen_no;
     }
-    int cro_sen_len=firchrom.indiv[cro_sen_no].size(); /** »ñÈ¡Á½ÕßÊÊÓ¦¶È×îĞ¡¾äµÄ¾ä×Ó³¤¶È */
-    int rand_sen_no=cre_random(0,firchrom.indiv.size()-1); /**ÎªÁË±ÜÃâÆµ·±½»²æĞ¡´ÊÊı¾ä×Ó(ÒòÎª·¢ÏÖĞ¡´ÊÊı¾ä×Ó³ÉÎªÊÊÓ¦¶È×îĞ¡µÄ¾ä×ÓµÄ¸ÅÂÊ´ó£¬Ô­ÒòÔÚÓëĞ¡´ÊÊı¾ä×Óµ¥´ÊÉÙ£¬ÔòÇé¸ĞµÃ·Ö·½²î´ó)£¬Ëæ»úÉú³É¾ä×Ó±àºÅ£¬ÒÔ0.3µÄ¸ÅÂÊ½ÓÊÜ½»²æÕâ¾ä */
+    int cro_sen_len=firchrom.indiv[cro_sen_no].size(); /** è·å–ä¸¤è€…é€‚åº”åº¦æœ€å°å¥çš„å¥å­é•¿åº¦ */
+    int rand_sen_no=cre_random(0,firchrom.indiv.size()-1); /**ä¸ºäº†é¿å…é¢‘ç¹äº¤å‰å°è¯æ•°å¥å­(å› ä¸ºå‘ç°å°è¯æ•°å¥å­æˆä¸ºé€‚åº”åº¦æœ€å°çš„å¥å­çš„æ¦‚ç‡å¤§ï¼ŒåŸå› åœ¨ä¸å°è¯æ•°å¥å­å•è¯å°‘ï¼Œåˆ™æƒ…æ„Ÿå¾—åˆ†æ–¹å·®å¤§)ï¼Œéšæœºç”Ÿæˆå¥å­ç¼–å·ï¼Œä»¥0.3çš„æ¦‚ç‡æ¥å—äº¤å‰è¿™å¥ */
     int rand_sen_len=firchrom.indiv[rand_sen_no].size();
     double prand=cre_random(0,1);
     if ( prand<PCLEVER )
@@ -392,27 +391,27 @@ void crossover_chrom (Chrom&  firchrom, Chrom & secchrom,vector<int> keyword)
         cro_sen_no=rand_sen_no;
         cro_sen_len=rand_sen_len;
     }
-    int cro_sta=cre_random(0,cro_sen_len-1);    /** Ëæ»ú²úÉú²¿·ÖÓ³Éä½»²æ¿ªÊ¼Î» ,ÒòÎªÃ¿¾äµ¥´ÊÊı¹ıÉÙ£¬²¿·ÖÓ³Éä½»²æÒ»ÂÉ½»²æÖÁ±¾¾äÄ©Î²£¬²»ÔÙËæ»úÑ¡È¡½áÊøÎ»ÖÃ*/
-    vector<int> fir_cro_word;                   /** »ñÈ¡È·¶¨Ó³ÉäµÄ²¿·Ö */
+    int cro_sta=cre_random(0,cro_sen_len-1);    /** éšæœºäº§ç”Ÿéƒ¨åˆ†æ˜ å°„äº¤å‰å¼€å§‹ä½ ,å› ä¸ºæ¯å¥å•è¯æ•°è¿‡å°‘ï¼Œéƒ¨åˆ†æ˜ å°„äº¤å‰ä¸€å¾‹äº¤å‰è‡³æœ¬å¥æœ«å°¾ï¼Œä¸å†éšæœºé€‰å–ç»“æŸä½ç½®*/
+    vector<int> fir_cro_word;                   /** è·å–ç¡®å®šæ˜ å°„çš„éƒ¨åˆ† */
     vector<int> sec_cro_word;
     for ( int j = cro_sta; j < cro_sen_len-1; j++ )
     {
         fir_cro_word.push_back(firchrom.indiv[cro_sen_no][j]);
         sec_cro_word.push_back(secchrom.indiv[cro_sen_no][j]);
     }
-    for ( int i = 0; i < firchrom.indiv.size(); i++) /** ²¿·ÖÓ³Éä½»²æ£¬½«È«´Ê¾ßÓĞÓ³Éä¹ØÏµµÄ´ÊÈ«²¿½»²æ,½»²æ×ñÑ­Ô­À´Ó³ÉäµÄ·½ÏòĞÔ£¬±ÈÈç1->4£¬ÔòÈÏÎª4->1ÎŞĞ§£¬³ı·Ç±¾´ÎÓ³ÉäÆäËûÎ»ÖÃ´æÔÚ4->1 */
+    for ( int i = 0; i < firchrom.indiv.size(); i++) /** éƒ¨åˆ†æ˜ å°„äº¤å‰ï¼Œå°†å…¨è¯å…·æœ‰æ˜ å°„å…³ç³»çš„è¯å…¨éƒ¨äº¤å‰,äº¤å‰éµå¾ªåŸæ¥æ˜ å°„çš„æ–¹å‘æ€§ï¼Œæ¯”å¦‚1->4ï¼Œåˆ™è®¤ä¸º4->1æ— æ•ˆï¼Œé™¤éæœ¬æ¬¡æ˜ å°„å…¶ä»–ä½ç½®å­˜åœ¨4->1 */
     {
         for ( int k = 0; k < firchrom.indiv[i].size(); k++ )
         {
             vector<int>::iterator fir_findit=find(fir_cro_word.begin(),fir_cro_word.end(),firchrom.indiv[i][k]);
-            if(fir_findit!=fir_cro_word.end())  /** »ñÈ¡±»½»²æµ¥´ÊµÄµü´úÆ÷ */
+            if(fir_findit!=fir_cro_word.end())  /** è·å–è¢«äº¤å‰å•è¯çš„è¿­ä»£å™¨ */
             {
-                firchrom.indiv[i][k]=sec_cro_word.at(fir_findit-fir_cro_word.begin()); /** ¼ÆËãÆäÔÚÊ¸Á¿ÖĞµÄÎ»ÖÃ£¬²¢»ñÈ¡ÄÚÈİ½øĞĞ½»²æ */
+                firchrom.indiv[i][k]=sec_cro_word.at(fir_findit-fir_cro_word.begin()); /** è®¡ç®—å…¶åœ¨çŸ¢é‡ä¸­çš„ä½ç½®ï¼Œå¹¶è·å–å†…å®¹è¿›è¡Œäº¤å‰ */
                 secchrom.indiv[i][k]=fir_cro_word.at(fir_findit-fir_cro_word.begin());
             }
         }
     }
-    comp_res(keyword,firchrom); /**  ¸üĞÂÃ¿ÌõÈ¾É«Ìå*/
+    comp_res(keyword,firchrom); /**  æ›´æ–°æ¯æ¡æŸ“è‰²ä½“*/
     comp_res(keyword,secchrom);
 }
 
@@ -466,13 +465,13 @@ void chose_inher(vector<Chrom>& father,vector<Chrom>& son)
 {
     int best_res_no=search_best(father);
     son.clear();
-    son.push_back(father[best_res_no]);         /** ¾«Ó¢Ö÷Òå£¬½«¸Ã´ú×îÓÅ¸öÌå100%ÒÅ´« */
-    vector<double> rea_best_res;                /** ¼ÆËãÏà¶Ô×îÓÅ¸öÌåµÄÏà¶ÔÊÊÓ¦¶È */
+    son.push_back(father[best_res_no]);         /** ç²¾è‹±ä¸»ä¹‰ï¼Œå°†è¯¥ä»£æœ€ä¼˜ä¸ªä½“100%é—ä¼  */
+    vector<double> rea_best_res;                /** è®¡ç®—ç›¸å¯¹æœ€ä¼˜ä¸ªä½“çš„ç›¸å¯¹é€‚åº”åº¦ */
     for ( int i = 0; i < father.size(); ++i )
     {
         rea_best_res.push_back(res_sum(father[i])/res_sum(father[best_res_no]));
     }
-    vector<double> rea_best_res_sum(father.size()); /** »ñÈ¡Ïà¶ÔÊÊÓ¦¶ÈµÄ»ıÀÛ */
+    vector<double> rea_best_res_sum(father.size()); /** è·å–ç›¸å¯¹é€‚åº”åº¦çš„ç§¯ç´¯ */
     for ( int j = 0; j < father.size(); ++j )
     {
         rea_best_res_sum[j]=rea_best_res[j];
@@ -481,12 +480,12 @@ void chose_inher(vector<Chrom>& father,vector<Chrom>& son)
             rea_best_res_sum[j]+=rea_best_res[k];
         }
     }
-    double rea_res_total=rea_best_res_sum.back(); /** »ñµÃÊÊÓ¦¶ÈµÄ»ıÀÛÖµ */
+    double rea_res_total=rea_best_res_sum.back(); /** è·å¾—é€‚åº”åº¦çš„ç§¯ç´¯å€¼ */
     /** 
-     * ÂÖÅÌ¶ÄËã·¨ 
+     * è½®ç›˜èµŒç®—æ³• 
      */
     double randres;                             
-    while ( son.size() !=POPSIZE )       /** ±£Ö¤ÖÖÈºÄÚ¸öÌåÊıÁ¿²»±ä */
+    while ( son.size() !=POPSIZE )       /** ä¿è¯ç§ç¾¤å†…ä¸ªä½“æ•°é‡ä¸å˜ */
     {
         randres=cre_random(0,rea_res_total);
         for ( int l = 0; l <father.size() ; l++ )
@@ -505,7 +504,7 @@ int  change_dfa_one(Chrom onechrom,vector<Chrom> popu,int muta_sen_no,vector<int
 {
     ifstream finword;
     int i;
-    finword.open("wordslib.data",ios::in|ios::binary); /**   wordslib.data Ö÷ÒªÊÇµ¥´ÊÁĞ±í  */
+    finword.open("wordslib.data",ios::in|ios::binary); /**   wordslib.data ä¸»è¦æ˜¯å•è¯åˆ—è¡¨  */
     int dfa=0;
     for (i = 0; i < popu.size() && dfa ==0;i++)
     {
@@ -567,41 +566,41 @@ int get_pz_fr_pat(string pattern,int wordth,string & wordpz)
 int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> wordlist,int cipai)
 {
     ifstream finword;
-    finword.open("wordslib.data",ios::in|ios::binary); /**  1:19:45 wordslib.data Ö÷ÒªÊÇµ¥´ÊÁĞ±í  */
+    finword.open("wordslib.data",ios::in|ios::binary); /**  1:19:45 wordslib.data ä¸»è¦æ˜¯å•è¯åˆ—è¡¨  */
     ifstream finrev;
-    finrev.open("reva.data",ios::in|ios::binary); /**  1:18:05 reve.dataÖ÷ÒªÊÇÁ½¸öµ¥´ÊÖ®¼äµÄÏà¹Ø¶È¾ØÕó */
+    finrev.open("reva.data",ios::in|ios::binary); /**  1:18:05 reve.dataä¸»è¦æ˜¯ä¸¤ä¸ªå•è¯ä¹‹é—´çš„ç›¸å…³åº¦çŸ©é˜µ */
 
     /**
-     * Ñ¡Ôñ±äÒìÎ»ÖÃ
+     * é€‰æ‹©å˜å¼‚ä½ç½®
      */
     if(onechrom.indiv[muta_sen_no].size()==1)
-        return 0;                               /** ±Ü¿ªµ¥¸ö´Ê¹¹³É¾ä×ÓµÄ±äÒì */
-    int chos_pos=rand()%onechrom.indiv[muta_sen_no].size(); /**  Ëæ»úÑ¡È¡¾ä×ÓÖĞ±äÒìµ¥´ÊÖÜÎ§µÄÎ»ÖÃ£¨µ¥´Ê£©*/
-    int muta_pos;                               /** ±äÒìµ¥´ÊËùÔÚµÄÎ»ÖÃ */
-    if(chos_pos==0)                             /** µ±µÚÒ»¸öµ¥´Ê  */
+        return 0;                               /** é¿å¼€å•ä¸ªè¯æ„æˆå¥å­çš„å˜å¼‚ */
+    int chos_pos=rand()%onechrom.indiv[muta_sen_no].size(); /**  éšæœºé€‰å–å¥å­ä¸­å˜å¼‚å•è¯å‘¨å›´çš„ä½ç½®ï¼ˆå•è¯ï¼‰*/
+    int muta_pos;                               /** å˜å¼‚å•è¯æ‰€åœ¨çš„ä½ç½® */
+    if(chos_pos==0)                             /** å½“ç¬¬ä¸€ä¸ªå•è¯  */
     {
         if( onechrom.indiv[muta_sen_no].size()==2) 
-            muta_pos=0; /**±Ü¿ªÈçÏÂÇé¿ö£ºÒ»¾ä´ÊÓÉÁ½¸öµ¥´Ê¹¹³É£¬¸Ã¾äº¬ÓĞÔÏ½Å£¬Ñ¡ÔñµÚÒ»¸öµ¥´Ê£¬+1¶ÔÔÏ½Å½øĞĞ¸Ä±ä */
+            muta_pos=0; /**é¿å¼€å¦‚ä¸‹æƒ…å†µï¼šä¸€å¥è¯ç”±ä¸¤ä¸ªå•è¯æ„æˆï¼Œè¯¥å¥å«æœ‰éŸµè„šï¼Œé€‰æ‹©ç¬¬ä¸€ä¸ªå•è¯ï¼Œ+1å¯¹éŸµè„šè¿›è¡Œæ”¹å˜ */
         else
             muta_pos=chos_pos+1;
     }
     else
     {
-        muta_pos=chos_pos-1;/** ±äÒìÑ¡ÖĞµ¥´ÊÇ°ÃæµÄµ¥´Ê ±Ü¿ªÁËÌæ»»¸Ã¾äµÄÔÏ½Åµ¥´ÊµÄ¿ÉÄÜ  */
+        muta_pos=chos_pos-1;/** å˜å¼‚é€‰ä¸­å•è¯å‰é¢çš„å•è¯ é¿å¼€äº†æ›¿æ¢è¯¥å¥çš„éŸµè„šå•è¯çš„å¯èƒ½  */
     }
 
     /**
-     * »ñÈ¡±äÒìÎ»ÖÃÓ¦¾ßÓĞµÄÆ½ØÆ
+     * è·å–å˜å¼‚ä½ç½®åº”å…·æœ‰çš„å¹³ä»„
      */
-    int wordid=onechrom.indiv[muta_sen_no][muta_pos]; /** »ñÈ¡±äÒìÎ»ÖÃµÄµ¥´ÊID */
-    string sen_pattern(cipai_table[cipai].ref[muta_sen_no]); /** »ñÈ¡½«Òª±äÒìµÄ¾ä×ÓµÄpattern */
-    string muta_pz;                             /** ½«Òª±äÒìµÄµ¥´ÊËùÕ¼Î»ÖÃÔÚpatternÖĞµÄÆ½ØÆ */
+    int wordid=onechrom.indiv[muta_sen_no][muta_pos]; /** è·å–å˜å¼‚ä½ç½®çš„å•è¯ID */
+    string sen_pattern(cipai_table[cipai].ref[muta_sen_no]); /** è·å–å°†è¦å˜å¼‚çš„å¥å­çš„pattern */
+    string muta_pz;                             /** å°†è¦å˜å¼‚çš„å•è¯æ‰€å ä½ç½®åœ¨patternä¸­çš„å¹³ä»„ */
     if (get_pz_fr_pat(sen_pattern,muta_pos,muta_pz)==-1)
         return -1;
     /**
-     * ±È½Ï±äÒìµ¥´ÊÓëÕı³£¸ñÂÉÄ£Ê½ÏÂ¸Ã²¿Î»Æ½ØÆ×ÖÊıµÄ³¤¶È£¬Ö»ÓĞÏàÍ¬µÄ×ÖÊı²ÅÄÜ±äÒì
+     * æ¯”è¾ƒå˜å¼‚å•è¯ä¸æ­£å¸¸æ ¼å¾‹æ¨¡å¼ä¸‹è¯¥éƒ¨ä½å¹³ä»„å­—æ•°çš„é•¿åº¦ï¼Œåªæœ‰ç›¸åŒçš„å­—æ•°æ‰èƒ½å˜å¼‚
      */
-    int muta_len=wordid>split_one?2:1;          /** »ñÈ¡±»Ìæ»»µ¥´ÊµÄ³¤¶È */
+    int muta_len=wordid>split_one?2:1;          /** è·å–è¢«æ›¿æ¢å•è¯çš„é•¿åº¦ */
     if(muta_len!=muta_pz.size())
     {
         cout<<"muta_len="<<muta_len<<" muta_pz_size="<<muta_pz.size()<<endl;
@@ -612,7 +611,7 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
     }
 
     /**
-     * »ñÈ¡wordlistÖĞ1×Öµ¥´ÊÓë2×Öµ¥´ÊµÄ·Ö½ç
+     * è·å–wordlistä¸­1å­—å•è¯ä¸2å­—å•è¯çš„åˆ†ç•Œ
      */
     int fir_two_pos=0;
     sort(wordlist.begin(),wordlist.end());
@@ -627,19 +626,19 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
         start=fir_two_pos;
 
     /**
-     *  ´ÓwordlistÖĞÑ¡ÔñºÏÊÊµÄµ¥´Ê½øĞĞ±äÒì
-     *  Á½ÖÖ°ì·¨£º
+     *  ä»wordlistä¸­é€‰æ‹©åˆé€‚çš„å•è¯è¿›è¡Œå˜å¼‚
+     *  ä¸¤ç§åŠæ³•ï¼š
      *  
-     *  1¡¢Ê¹ÓÃwordlistÖĞ»ñµÃ´ò·Ö×î¸ßµÄµ¥´ÊÈ¥±äÒì£»È±µã£ºÒ»´Î±äÒìÌ«Âı
-     *  2¡¢Ê¹ÓÃwordlistÖĞµÚÒ»´ÎÓöµ½µÄ´ò·Ö³¬Ô½Ô­´ÊµÄµ¥´Ê±äÒì;È±µã£ºĞèÒª½Ï¶à´Îµü´ú²ÅÄÜÕÒµ½¸üºÃµÄ´Ê
+     *  1ã€ä½¿ç”¨wordlistä¸­è·å¾—æ‰“åˆ†æœ€é«˜çš„å•è¯å»å˜å¼‚ï¼›ç¼ºç‚¹ï¼šä¸€æ¬¡å˜å¼‚å¤ªæ…¢
+     *  2ã€ä½¿ç”¨wordlistä¸­ç¬¬ä¸€æ¬¡é‡åˆ°çš„æ‰“åˆ†è¶…è¶ŠåŸè¯çš„å•è¯å˜å¼‚;ç¼ºç‚¹ï¼šéœ€è¦è¾ƒå¤šæ¬¡è¿­ä»£æ‰èƒ½æ‰¾åˆ°æ›´å¥½çš„è¯
      *
      */
 
     word new_word;
     double ori_score=re_evaluate(onechrom.indiv[muta_sen_no],keyword,finrev)/onechrom.indiv[muta_sen_no].size()*RE_TIME+emotion_evaluate(onechrom.indiv[muta_sen_no],finword)*EM_TIME;
-    double try_best_score=ori_score;/** ×îºÃµÄ±äÒìºóËÎ´ÊµÄ´ò·Ö,³õÊ¼ÎªÔ­ËÎ´ÊµÄ´ò·Ö */
+    double try_best_score=ori_score;/** æœ€å¥½çš„å˜å¼‚åå®‹è¯çš„æ‰“åˆ†,åˆå§‹ä¸ºåŸå®‹è¯çš„æ‰“åˆ† */
     double try_score=ori_score;
-    int try_best_id=wordid; /** ±äÒìºó×îºÃµ¥´ÊµÄid,³õÊ¼ÎªÔ­µ¥´Êid */
+    int try_best_id=wordid; /** å˜å¼‚åæœ€å¥½å•è¯çš„id,åˆå§‹ä¸ºåŸå•è¯id */
     int try_id=wordid;
     int pz_jd=1;
     int count_muta=0;
@@ -649,7 +648,7 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
     for(int i=start;i<over;i++)
     {
         new_word=get_word(wordlist[i],finword);
-        pz_jd=1;                            /** ¸Ã´ÊÓëÔ­¾äÊ½¸ÃÎ»ÖÃÓ¦ÓĞµÄÆ½ØÆ±È½Ï */
+        pz_jd=1;                            /** è¯¥è¯ä¸åŸå¥å¼è¯¥ä½ç½®åº”æœ‰çš„å¹³ä»„æ¯”è¾ƒ */
         for(int k=0;k<muta_len;k++)
         {
             if(muta_pz[k]=='*')
@@ -660,7 +659,7 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
                     pz_jd=0;
             }
         }
-        if(pz_jd)                               /** Èç¹ûÆ½ØÆÏàÍ¬ ²ÅÖ´ĞĞÈçÏÂ  */
+        if(pz_jd)                               /** å¦‚æœå¹³ä»„ç›¸åŒ æ‰æ‰§è¡Œå¦‚ä¸‹  */
         {
             try_id=new_word.id;
             try_sen[muta_pos]=try_id;
@@ -668,7 +667,7 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
             {
                 try_score=re_evaluate(try_sen,keyword,finrev)/try_sen.size()*RE_TIME+emotion_evaluate(try_sen,finword)*EM_TIME;
                 /**
-                 *  ·½·¨Ò»
+                 *  æ–¹æ³•ä¸€
                  */
 /*                 if(try_score>ori_score)
  *                 {
@@ -680,7 +679,7 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
 
 
                 /**
-                 * ·½·¨¶ş 
+                 * æ–¹æ³•äºŒ 
                  */
                         if(try_score>try_best_score)
 							//&&count_muta<COUNTTIME)
@@ -711,18 +710,18 @@ int muta_sen(Chrom onechrom,int muta_sen_no,vector<int> keyword,vector<int> word
 
 int  muta(Chrom & onechrom,vector<Chrom> popu,vector<int > keyword,vector<int > & wordlist,int cipai)
 {
-    int muta_sen_no=onechrom.minres_sen.sen_no;    /**Óë½»²æÊ±²ÉÈ¡0.8¸ÅÂÊ½ÓÊÜ±äÒì·Ç×îĞ¡ÊÊÓ¦¶È¾ä×ÓÍ¬ÑùµÄ²Ù×÷²½Öè  */
+    int muta_sen_no=onechrom.minres_sen.sen_no;    /**ä¸äº¤å‰æ—¶é‡‡å–0.8æ¦‚ç‡æ¥å—å˜å¼‚éæœ€å°é€‚åº”åº¦å¥å­åŒæ ·çš„æ“ä½œæ­¥éª¤  */
     ifstream finword;
-    finword.open("wordslib.data",ios::in|ios::binary); /**  wordslib.data Ö÷ÒªÊÇµ¥´ÊÁĞ±í  */
+    finword.open("wordslib.data",ios::in|ios::binary); /**  wordslib.data ä¸»è¦æ˜¯å•è¯åˆ—è¡¨  */
     double prand=cre_random(0,1);
-    if ( prand<PCLEVER )                        /** ÒÔ0.8¸ÅÂÊ½ÓÊÜÆäËû¾ä×Ó±äÒì  */
+    if ( prand<PCLEVER )                        /** ä»¥0.8æ¦‚ç‡æ¥å—å…¶ä»–å¥å­å˜å¼‚  */
     {
         muta_sen_no=cre_random(0,onechrom.indiv.size()-1);
     }
     int dfa=sytax_evaluate(onechrom.indiv[muta_sen_no],finword);
     finword.close();
     /**
-     *  Èç¹û±äÒì´Ê¾äµÄDFAÎª0,Ôò´ÓÖĞÈºÄÚÆäËû¸öÌåÖĞÕÒ±¾¾äDFAÎª1µÄ½øĞĞÌæ»»£¬·ñÔò¿ªÊ¼±äÒì¡£
+     *  å¦‚æœå˜å¼‚è¯å¥çš„DFAä¸º0,åˆ™ä»ä¸­ç¾¤å†…å…¶ä»–ä¸ªä½“ä¸­æ‰¾æœ¬å¥DFAä¸º1çš„è¿›è¡Œæ›¿æ¢ï¼Œå¦åˆ™å¼€å§‹å˜å¼‚ã€‚
      */
     if(dfa==0)
     {
@@ -743,9 +742,9 @@ int ga_pro(vector<Chrom>& father,vector<Chrom>& son, int gen,vector<int> keyword
     time_t begin_chose_inher=time(NULL);
 #endif    
 
-    Chrom best_fa=father[search_best(father)];  /** »ñÈ¡×îÓÅ¸¸´úµÄµÃ·Ö£¬ÉÔºóÓë×îÓÅ×Ó´ú±È½Ï */
+    Chrom best_fa=father[search_best(father)];  /** è·å–æœ€ä¼˜çˆ¶ä»£çš„å¾—åˆ†ï¼Œç¨åä¸æœ€ä¼˜å­ä»£æ¯”è¾ƒ */
     double best_fa_res=res_sum(best_fa);
-    chose_inher(father,son);                    /** ´Ó¸¸´úÑ¡ÔñÒÅ´« */
+    chose_inher(father,son);                    /** ä»çˆ¶ä»£é€‰æ‹©é—ä¼  */
 
 #if DEBUGMODE
     cout<<"chose_inher time : "<< time(NULL)-begin_chose_inher<<endl;
@@ -755,13 +754,13 @@ int ga_pro(vector<Chrom>& father,vector<Chrom>& son, int gen,vector<int> keyword
     time_t begin_cross=time(NULL);
 #endif    
 
-    int fir,sec;                                /** ±»Ñ¡Ôñ½»²æ»òÕß±äÒìµÄ¸öÌå±àºÅ */
-    double pxover=0.;                           /** ²úÉú½»²æµÄËæ»úÊı */
-    double pmu;                                 /** ²úÉú±äÒìµÄËæ»úÊı */
-    double pfaok;                               /** ²úÉú½ÓÊÜ¸¸´úµÄËæ»úÊı */
-    Chrom  media;                               /** Ôİ´æ½»²æºóµÄ¸öÌå */
-    Chrom firbak;                               /** Ôİ´æ±»Ñ¡Ôñ½»²æÇ°µÄ¸öÌå */
-    Chrom secbak;                               /** Ôİ´æ±»Ñ¡Ôñ½»²æÇ°µÄ¸öÌå */
+    int fir,sec;                                /** è¢«é€‰æ‹©äº¤å‰æˆ–è€…å˜å¼‚çš„ä¸ªä½“ç¼–å· */
+    double pxover=0.;                           /** äº§ç”Ÿäº¤å‰çš„éšæœºæ•° */
+    double pmu;                                 /** äº§ç”Ÿå˜å¼‚çš„éšæœºæ•° */
+    double pfaok;                               /** äº§ç”Ÿæ¥å—çˆ¶ä»£çš„éšæœºæ•° */
+    Chrom  media;                               /** æš‚å­˜äº¤å‰åçš„ä¸ªä½“ */
+    Chrom firbak;                               /** æš‚å­˜è¢«é€‰æ‹©äº¤å‰å‰çš„ä¸ªä½“ */
+    Chrom secbak;                               /** æš‚å­˜è¢«é€‰æ‹©äº¤å‰å‰çš„ä¸ªä½“ */
 
     for(int times=0;times<NOCROSS;times++)
     {
@@ -771,27 +770,27 @@ int ga_pro(vector<Chrom>& father,vector<Chrom>& son, int gen,vector<int> keyword
         secbak=son[sec];
 
         pxover=cre_random(0,1);
-        if(pxover<PXOVER)                       /** 0.8µÄ¸ÅÂÊ²úÉú½»²æ */
+        if(pxover<PXOVER)                       /** 0.8çš„æ¦‚ç‡äº§ç”Ÿäº¤å‰ */
         {
-            crossover_chrom(son[fir],son[sec],keyword); /** ½»²æ²¢¸üĞÂÊÊÓ¦¶È */
+            crossover_chrom(son[fir],son[sec],keyword); /** äº¤å‰å¹¶æ›´æ–°é€‚åº”åº¦ */
         }
 
         for ( int m = 0; m < NOMUTATION; m++ )
         {
             media=son[fir];
             pmu=cre_random(0,1);
-            if(pmu<PMUTATION&&muta(son[fir],son,keyword,wordlist,cipai)!=-1)               /**¼´ÒÔPMUTATIONµÄ¸ÅÂÊ½ÓÊÜ±äÒì  */
+            if(pmu<PMUTATION&&muta(son[fir],son,keyword,wordlist,cipai)!=-1)               /**å³ä»¥PMUTATIONçš„æ¦‚ç‡æ¥å—å˜å¼‚  */
             {
-                /** ½ÓÊÜÕı±äÒì */
+                /** æ¥å—æ­£å˜å¼‚ */
             }
             else
                 son[fir]=media;   
 
             media=son[sec];
             pmu=cre_random(0,1);
-            if(pmu<PMUTATION&&muta(son[sec],son,keyword,wordlist,cipai)!=-1)               /**¼´ÒÔPMUTATIONµÄ¸ÅÂÊ½ÓÊÜ±äÒì  */
+            if(pmu<PMUTATION&&muta(son[sec],son,keyword,wordlist,cipai)!=-1)               /**å³ä»¥PMUTATIONçš„æ¦‚ç‡æ¥å—å˜å¼‚  */
             {
-                /** ½ÓÊÜÕı±äÒì */
+                /** æ¥å—æ­£å˜å¼‚ */
             }
             else
                 son[sec]=media;   
